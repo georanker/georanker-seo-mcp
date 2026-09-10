@@ -1,0 +1,51 @@
+{
+  "name": "@georanker/seo-mcp",
+  "version": "0.10.2",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "description": "SERP data, multi-location rank tracking, Lighthouse SEO audits, broken internal links, backlinks and keyword volumes for AI agents, powered by GeoRanker.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/georanker/georanker-seo-mcp.git"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "bin": {
+    "georanker-seo-mcp": "dist/src/cli.js"
+  },
+  "files": [
+    "dist/src",
+    "README.md",
+    "metadata.json",
+    "docs/install.md",
+    "docs/privacy.md",
+    "docs/examples.md",
+    "docs/seo-reports.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "npm run build && node --test dist/test/*.test.js",
+    "prepack": "npm run build",
+    "pack:check": "npm run build && node scripts/check-package.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.30.0",
+    "zod": "4.5.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.0",
+    "typescript": "^5.9.3"
+  },
+  "keywords": [
+    "mcp",
+    "seo",
+    "serp",
+    "rank-tracking",
+    "seo-audit",
+    "backlinks",
+    "keyword-research",
+    "local-seo"
+  ]
+}
