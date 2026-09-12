@@ -6,6 +6,18 @@ Each create tool returns an MCP `reportId` beginning `seo_`. Save it and call th
 
 Independent tasks can be requested in parallel. The hosted service applies shared and per-installation limits and may briefly queue a call; its operator controls those settings centrally. Clients using the same installation share its limits. A pending report should be retrieved with its existing ID, and cancelling a call does not guarantee that a submitted report stopped. Seven-day reuse and `forceLive` behavior remain unchanged.
 
+## Organize reports into campaigns
+
+All five report families support optional `campaignName`. Omit it to use this installation's stable default campaign. Supply a name (2–120 characters) to use one of your MCP-created campaigns or create a new owned campaign:
+
+```json
+{"url":"https://example.com/","devices":["mobile"],"campaignName":"Website performance"}
+```
+
+This example creates an on-page report in `Website performance`. The same selection works for rank tracking, broken links, backlinks and keyword volumes. `campaignName` chooses the campaign; `reportName` or `name` labels an individual report where supported. Matching names never grant access to another user's campaign. A pre-existing campaign in the GeoRanker website is not automatically adopted just because its name matches. SERP searches and web scraping do not use campaigns.
+
+When account linking is enabled, registered users' new reports use their own account. Reports created before registration keep their original ownership and installation access; signing up does not move them into the new website account. Retain their report IDs for retrieval. Campaign renames preserve report IDs, and archive requires a replacement default first.
+
 The examples below are tool arguments, not measured results. Replace example domains with your public target. Every get example uses a fictional ID: replace it with the exact `reportId` from your create response.
 
 ## Rank tracking
@@ -54,7 +66,7 @@ Call `get_broken_links_report`:
 {"reportId":"seo_00000000-0000-4000-8000-000000000000"}
 ```
 
-Defaults: site scope, depth 2 and at most 20 pages. MCP bounds are depth 1-10 and pages 1-1000; these are local schema limits, not guaranteed provider capacity. A live site request with a 100-page limit has completed and returned link checks. This does not mean 100 distinct pages were crawled. External-link checking is disabled. Use `scope: "site"` for a bounded site crawl or `scope: "page"` for one page. The older `domain` value is accepted as a compatibility alias for `site`. Path-restricted crawling is not supported; `path` is rejected without submitting work. Show the requested scope, actual returned links and completion state; a bounded crawl does not establish the health of every page on a site.
+Defaults: site scope, depth 2 and at most 20 pages. MCP bounds are depth 1-10 and pages 1-1000; these are local schema limits, not guaranteed provider capacity. A requested page limit does not establish how many distinct pages the provider crawled. External-link checking is disabled. Use `scope: "site"` for a bounded site crawl or `scope: "page"` for one page. The older `domain` value is accepted as a compatibility alias for `site`. Path-restricted crawling is not supported; `path` is rejected without submitting work. Show the requested scope, actual returned links and completion state; a bounded crawl does not establish the health of every page on a site.
 
 ## Backlinks
 
@@ -86,11 +98,13 @@ Call `get_keyword_volume_report`:
 {"reportId":"seo_00000000-0000-4000-8000-000000000000"}
 ```
 
-The limit is 1-200 keywords. Defaults are `provider: "google_ads"` and `endpoint: "search_volume"`, unless the service configures alternatives. These identifiers and fields such as `search_volume`, `cpc` and `monthly_searches` were observed in existing report data. Optional `provider` and `endpoint` accept documented alternatives; do not guess supported values. Preserve returned volumes, dates, locations and units. Missing data is not zero, and a CPC without a supplied currency must not be assigned one.
+The limit is 1-200 keywords. Defaults are `provider: "google_ads"` and `endpoint: "search_volume"`, unless the service configures alternatives. Returned fields can include `search_volume`, `cpc` and `monthly_searches`. Optional `provider` and `endpoint` accept documented alternatives; do not guess supported values. Preserve returned volumes, dates, locations and units. Missing data is not zero, and a CPC without a supplied currency must not be assigned one.
 
 ## Allowance and scheduling
 
-Report requests use a shared MCP allowance. Count the requested work before creating a report:
+Unregistered users have a free allowance. Registered users without an authorized card keep the same free limits. When account linking is enabled, card-authorized users can receive a higher configurable allowance, and paid users remain within their GeoRanker credits. New work uses the linked account when available; missing account access returns an error rather than changing ownership. Account linking and rebilling still require GeoRanker integration and are not claimed as available here. No automatic card charge is enabled.
+
+Count the requested work before creating a report:
 
 | Report | Admission units |
 | --- | --- |
@@ -126,7 +140,7 @@ Readiness follows each report family's supported evidence. Preserve `pending`, `
 
 ## Submission errors
 
-A rejected submission is different from a completed crawl that found broken links. Retain the MCP report ID and read the rejection details when available. A failed submission has no confirmed provider report ID. Version 0.8.1 preserves bounded, sanitized API validation diagnostics on new rejected submissions; older failed records may have no detail. Use those field errors to correct the request, instead of repeatedly changing crawl size or recreating unresolved work.
+A rejected submission is different from a completed crawl that found broken links. Retain the MCP report ID and read the rejection details when available. A failed submission has no confirmed provider report ID. Rejected submissions preserve bounded, sanitized API validation diagnostics when supplied; older failed records may have no detail. Use those field errors to correct the request, instead of repeatedly changing crawl size or recreating unresolved work.
 
 ## Progress and recovery
 
