@@ -1,6 +1,6 @@
 {
   "name": "@georanker/seo-mcp",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "private": false,
   "license": "MIT",
   "publishConfig": {
@@ -8,7 +8,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "type": "module",
-  "description": "SERP data, multi-location rank tracking, Lighthouse SEO audits, broken internal links, backlinks and keyword volumes for AI agents, powered by GeoRanker.",
+  "description": "SERP data, multi-location rank tracking, Lighthouse SEO audits, broken internal links, backlinks, keyword volumes and domain WHOIS for AI agents, powered by GeoRanker.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/georanker/georanker-seo-mcp.git"
@@ -28,7 +28,8 @@
     "docs/install.md",
     "docs/privacy.md",
     "docs/examples.md",
-    "docs/seo-reports.md"
+    "docs/seo-reports.md",
+    "docs/whois.md"
   ],
   "scripts": {
     "build": "tsc",

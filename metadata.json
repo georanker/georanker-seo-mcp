@@ -1,7 +1,7 @@
 {
   "product": "seo",
   "catalogTitle": "SEO & SERP MCP by GeoRanker",
-  "description": "SERP data, multi-location rank tracking, Lighthouse SEO audits, broken internal links, backlinks and keyword volumes for AI agents, powered by GeoRanker.",
+  "description": "SERP data, multi-location rank tracking, Lighthouse SEO audits, broken internal links, backlinks, keyword volumes and domain WHOIS for AI agents, powered by GeoRanker.",
   "websiteTitle": "GeoRanker SEO & SERP MCP",
   "package": "@georanker/seo-mcp",
   "repository": "https://github.com/georanker/georanker-seo-mcp",
@@ -18,12 +18,19 @@
     "create_backlinks_report",
     "get_backlinks_report",
     "create_keyword_volume_report",
-    "get_keyword_volume_report"
+    "get_keyword_volume_report",
+    "get_whois"
   ],
   "transport": "stdio",
   "hostedPath": "/seo/mcp",
   "catalogHeader": {
-    "X-GeoRanker-SEO-Tools": "reports-v1"
+    "X-GeoRanker-SEO-Tools": "reports-v1",
+    "X-GeoRanker-WHOIS-Tools": "whois-v1"
+  },
+  "whois": {
+    "tool": "get_whois",
+    "mcpAllowanceCredits": 10,
+    "cacheHitCredits": 0
   },
   "reportFamilies": [
     "rank_tracking",
@@ -34,7 +41,7 @@
   ],
   "defaultCacheSeconds": 604800,
   "forceLiveParameter": "forceLive",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "status": "public-client",
   "license": "MIT",
   "distribution": {

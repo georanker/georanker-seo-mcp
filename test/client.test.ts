@@ -5,6 +5,7 @@ import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
 import { createServer } from '../src/server.js';
 import { SEO_TOOL_NAMES } from '../src/seo-contract.js';
+import { WHOIS_TOOL } from '../src/whois-contract.js';
 import { CLIENT_PROFILE } from '../src/product.js';
 import { RemoteService } from '../src/remote.js';
 import { AppError } from '../src/errors.js';
@@ -24,7 +25,7 @@ test('the fixed product advertises its audience tools, validates hosted schemas 
   try {
     const catalog = await client.listTools();
     const names = catalog.tools.map(tool => tool.name).sort();
-    assert.deepEqual(names, isSeo ? ['get_serp_result', 'search_serps', ...SEO_TOOL_NAMES].sort() : ['fetch_page', 'get_fetch_result']);
+    assert.deepEqual(names, isSeo ? ['get_serp_result', 'search_serps', ...SEO_TOOL_NAMES, WHOIS_TOOL].sort() : ['fetch_page', 'get_fetch_result']);
     const remote = new RemoteService({}, CLIENT_PROFILE);
     (remote as unknown as { connection: Promise<Client> }).connection = Promise.resolve(client);
     await remote.initialize();
