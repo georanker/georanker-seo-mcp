@@ -41,7 +41,7 @@
   ],
   "defaultCacheSeconds": 604800,
   "forceLiveParameter": "forceLive",
-  "version": "0.15.0",
+  "version": "0.15.1",
   "status": "public-client",
   "license": "MIT",
   "distribution": {

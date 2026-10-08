@@ -9,10 +9,10 @@ Use Node.js and npm, including npx. Supported Node.js versions are 22.22.2+ on t
 Run the setup check before configuring your host:
 
 ```sh
-npx --yes @georanker/seo-mcp@0.15.0 --setup
+npx --yes @georanker/seo-mcp@0.15.1 --setup
 ```
 
-These commands require @georanker/seo-mcp@0.15.0 to be available on the public npm registry. If that release is not yet published, use the GitHub source installation below. npx may need registry access to download the package and its dependencies.
+These commands require @georanker/seo-mcp@0.15.1 to be available on the public npm registry. If that release is not yet published, use the GitHub source installation below. npx may need registry access to download the package and its dependencies.
 
 The setup check verifies enrollment and the expected tools without a data query. Set GEORANKER_MCP_URL only when using a different endpoint. An unavailable or mismatched endpoint must be fixed by the operator; do not delete installation state to retry.
 
@@ -36,7 +36,7 @@ For a source installation, replace each npx command and its package arguments in
 
 Keep your host configured to the same npm bootstrap command or source launcher. Starting with client 0.13.0, it checks for released updates from the public georanker/georanker-seo-mcp repository at startup and every five minutes while the MCP is running. A push to main automatically runs the repository's release workflow. Only after its tests and clean-install checks pass does that workflow publish the client release with signed GitHub provenance.
 
-The @0.15.0 in the npx command pins the npm bootstrap package. It does not disable GeoRanker's automatic updater: the launcher can select a newer verified release from its separate update cache. To keep running exactly the selected npm version, also set GEORANKER_MCP_AUTO_UPDATE=0 in the host's MCP environment, then restart or reconnect. Manage future version changes explicitly in that configuration.
+The @0.15.1 in the npx command pins the npm bootstrap package. It does not disable GeoRanker's automatic updater: the launcher can select a newer verified release from its separate update cache. To keep running exactly the selected npm version, also set GEORANKER_MCP_AUTO_UPDATE=0 in the host's MCP environment, then restart or reconnect. Manage future version changes explicitly in that configuration.
 
 From 0.13.1, a version or schema compatibility error triggers an immediate signed release check without waiting for the five-minute interval. Runtime recovery checks are limited to once per worker release per session; ordinary errors do not trigger them. Active calls remain protected and failed requests are never replayed.
 
@@ -47,7 +47,7 @@ Updates require a supported Node.js version and npm on the MCP process's PATH, a
 With automatic updates enabled, prepare the latest signed release immediately:
 
 ```sh
-npx --yes @georanker/seo-mcp@0.15.0 --update
+npx --yes @georanker/seo-mcp@0.15.1 --update
 ```
 
 For the source fallback, use:
@@ -78,7 +78,7 @@ Then restart or reconnect the MCP in your host. Keep the existing launcher path 
 **Codex**
 
 ```sh
-codex mcp add georanker-seo -- npx --yes @georanker/seo-mcp@0.15.0
+codex mcp add georanker-seo -- npx --yes @georanker/seo-mcp@0.15.1
 ```
 
 Use /mcp to inspect the connection. [Official guide](https://developers.openai.com/codex/mcp).
@@ -86,7 +86,7 @@ Use /mcp to inspect the connection. [Official guide](https://developers.openai.c
 **Claude Code**
 
 ```sh
-claude mcp add --scope user --transport stdio georanker-seo -- npx --yes @georanker/seo-mcp@0.15.0
+claude mcp add --scope user --transport stdio georanker-seo -- npx --yes @georanker/seo-mcp@0.15.1
 ```
 
 Use /mcp to inspect the connection. [Official guide](https://code.claude.com/docs/en/mcp).
@@ -98,7 +98,7 @@ Use /mcp to inspect the connection. [Official guide](https://code.claude.com/doc
   "mcpServers": {
     "georanker-seo": {
       "command": "npx",
-      "args": ["--yes", "@georanker/seo-mcp@0.15.0"]
+      "args": ["--yes", "@georanker/seo-mcp@0.15.1"]
     }
   }
 }
@@ -124,7 +124,7 @@ Use “MCP: Add Server,” or .vscode/mcp.json with a servers object:
     "georanker-seo": {
       "type": "stdio",
       "command": "npx",
-      "args": ["--yes", "@georanker/seo-mcp@0.15.0"]
+      "args": ["--yes", "@georanker/seo-mcp@0.15.1"]
     }
   }
 }
@@ -142,7 +142,7 @@ Merge into opencode.json:
   "mcp": {
     "georanker-seo": {
       "type": "local",
-      "command": ["npx", "--yes", "@georanker/seo-mcp@0.15.0"],
+      "command": ["npx", "--yes", "@georanker/seo-mcp@0.15.1"],
       "enabled": true
     }
   }

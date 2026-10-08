@@ -1,7 +1,7 @@
 /** Public MCP product identities and input contracts. No provider configuration belongs here. */
 import type { SeoToolName } from './seo-contract.js';
 import type { WhoisInput } from './whois-contract.js';
-export const SERVER_VERSION = '0.15.0';
+export const SERVER_VERSION = '0.15.1';
 
 export type ProductProfile = 'combined' | 'seo' | 'scraping';
 export type JobKind = 'search' | 'page';

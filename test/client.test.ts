@@ -11,6 +11,16 @@ import { RemoteService } from '../src/remote.js';
 import { AppError } from '../src/errors.js';
 const isSeo = String(CLIENT_PROFILE) === 'seo';
 
+test('WHOIS failure credits stay authoritative and reconciliation remains server managed', { skip: !isSeo }, async () => {
+  let calls = 0;
+  const details = { submissionUncertain: true, mcpCreditsCharged: 0, mcpCreditsRefunded: 10, reconciliation: { managedBy: 'server', status: 'refunded' } };
+  const client = { async callTool() { calls++; return { isError: true, structuredContent: { error: { code: 'INVALID_RESPONSE', message: 'WHOIS lookup failed. The 10 MCP allowance credits were returned.', details } }, content: [] }; } } as unknown as Client;
+  const remote = new RemoteService({}, CLIENT_PROFILE);
+  (remote as unknown as { connection: Promise<Client> }).connection = Promise.resolve(client);
+  await assert.rejects(remote.getWhois({ domain: 'example.com' }), (error: unknown) => error instanceof AppError && error.details?.mcpCreditsCharged === 0 && error.details?.mcpCreditsRefunded === 10 && String(error.details?.nextAction).includes('on the server'));
+  assert.equal(calls, 1);
+});
+
 test('the fixed product advertises its audience tools, validates hosted schemas and forwards forceLive', async t => {
   const calls: object[] = [];
   const stub = {

@@ -109,7 +109,9 @@ function requestError(error: AppError, name: string, input: object, profile: Pro
   details.submissionUncertain = typeof details.submissionUncertain === 'boolean' ? details.submissionUncertain : (!name.startsWith('get_') || name === WHOIS_TOOL);
   details.automaticRetryPerformed = false;
   if (typeof details.nextAction !== 'string' || !details.nextAction.trim()) {
-    if (details.reportId) {
+    if (name === WHOIS_TOOL) {
+      details.nextAction = 'GeoRanker handles failed WHOIS credit reconciliation on the server. Do not resubmit this failed or uncertain lookup; no automatic lookup retry was performed.';
+    } else if (details.reportId) {
       const getter = name === 'update_rank_tracking_schedule' ? 'get_rank_tracking_report' : name.replace(/^create_/, 'get_');
       details.nextAction = `Retain this reportId and use ${getter} to check the existing report before submitting another report or schedule change.`;
     } else if (details.jobId) {
