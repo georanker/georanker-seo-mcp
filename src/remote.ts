@@ -12,7 +12,7 @@ import { SEO_REPORT_CATALOG, SEO_REPORT_HEADER, SEO_TOOL_NAMES, type SeoToolName
 import { WHOIS_TOOL, WHOIS_HEADER, WHOIS_CATALOG, type WhoisInput } from './whois-contract.js';
 import { createServer } from './server.js';
 
-export const PILOT_MCP_URL = 'https://grmcp.ibl.ro/mcp';
+export const PILOT_MCP_URL = 'https://mcp.georanker.com/mcp';
 const MAX_ERROR_TEXT = 8192;
 const record = (value: unknown): Record<string, unknown> | undefined => value !== null && typeof value === 'object' && !Array.isArray(value) ? value as Record<string, unknown> : undefined;
 const localCatalogs = new Map<ProductProfile, Promise<Map<string, unknown>>>();
