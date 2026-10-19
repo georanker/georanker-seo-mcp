@@ -19,8 +19,17 @@
     "get_backlinks_report",
     "create_keyword_volume_report",
     "get_keyword_volume_report",
-    "get_whois"
+    "get_whois",
+    "get_balance"
   ],
+  "balance": {
+    "tool": "get_balance",
+    "catalogHeader": {
+      "X-GeoRanker-Balance-Tools": "balance-v1"
+    },
+    "responseField": "balance",
+    "providerCredits": "last-reported-only"
+  },
   "transport": "stdio",
   "hostedPath": "/seo/mcp",
   "catalogHeader": {
@@ -41,7 +50,7 @@
   ],
   "defaultCacheSeconds": 604800,
   "forceLiveParameter": "forceLive",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "status": "public-client",
   "license": "MIT",
   "distribution": {

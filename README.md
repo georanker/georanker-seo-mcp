@@ -2,7 +2,7 @@
 
 SERP data, multi-location rank tracking, Lighthouse SEO audits, broken internal links, backlinks, keyword volumes and domain WHOIS for AI agents, powered by GeoRanker.
 
-Client version 0.16.0. The client is MIT-licensed. npm is the primary installation route for released versions; GitHub source installation is the fallback. If the requested npm version is not yet available, use the source instructions below. The hosted service is managed separately by GeoRanker.
+Client version 0.17.0. The client is MIT-licensed. npm is the primary installation route for released versions; GitHub source installation is the fallback. If the requested npm version is not yet available, use the source instructions below. The hosted service is managed separately by GeoRanker.
 
 **Install once, receive updates automatically**
 
@@ -28,6 +28,9 @@ Each push to the public main branch runs the release workflow. After tests and c
 - create_keyword_volume_report
 - get_keyword_volume_report
 - get_whois
+- get_balance
+
+Use get_balance to check remaining MCP allowance and last reported linked-account provider credits. Query responses include balance; report it with results without a redundant check. Missing or stale provider balances are labeled explicitly. See [balance and quota](docs/balance.md).
 
 Completed MCP results are eligible for reuse for seven days by default. Pass forceLive: true to bypass completed cache and request fresh upstream work. Pending work can be reused safely; retrieve the returned job ID instead of creating another request. Results disclose cache metadata and provider generation time when supplied. Report tools create persistent reports and use opaque reportId values, distinct from SERP jobId. Use each report’s matching get tool to retrieve it. Unknown or pending report status never triggers automatic recreation. For recurring rank reports, forceLive retrieves existing provider data and returns refreshNotice without a manual capture or duplicate schedule. The client negotiates the expanded SEO catalog while older clients retain their original tools. Use get_whois for synchronous domain registration data. A successful fresh WHOIS lookup costs exactly 10 MCP allowance credits, and completed cached reuse costs zero. Failed, malformed, timed-out or cancelled lookups release or refund the reservation, even when the provider outcome is uncertain. The server reports the actual credit and reconciliation state, retries pending accounting recovery after restart, and prevents client-paid replay, including forceLive. Refund completion is reported only after durable accounting confirms it. Provider account billing is separate. See the [WHOIS guide](docs/whois.md) for input, cache and error details. See [examples and limits](docs/examples.md). The [SEO report guide](docs/seo-reports.md) includes input examples, retrieval steps, scheduling and report-specific limits for all five families.
 
